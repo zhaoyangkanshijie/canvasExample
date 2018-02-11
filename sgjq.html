@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>sgjq</title>
+</head>
+<body style="border:1px solid black;">
+	<canvas id="background-map" style="display:block;"></canvas>
+	
+	<script>
+		var canvas = document.getElementById("background-map");
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+		var ctx = canvas.getContext("2d");
+		
+		drawPrivateMap(300,600);
+		ctx.rotate(90*Math.PI/180);
+		drawPrivateMap(300,-300);
+		ctx.rotate(90*Math.PI/180);
+		drawPrivateMap(300,-300);
+		
+		function drawRect(x,y,offsetX,offsetY)
+		{
+			//x=1,y=1:0-0-40-20 (x-1)-(y-1)-40-20
+			//x=2,y=1:60-0-40-20 (40+20)*(x-1)-(20+20)*(y-1)
+			//x=1,y=2:
+			ctx.strokeStyle = "orange";
+			ctx.strokeRect(60*(x-1)+offsetX,40*(y-1)+offsetY,40,20);
+		}
+		function drawCircle(x,y,offsetX,offsetY)
+		{
+			//x=1,y=1:20-10-10-0-2pi 
+			//x=2,y=1:80-10-10-0-2pi 20+60*(x-1)
+			//x=1,y=2:20-50-10-0-2pi 10+40*(y-1)
+			ctx.strokeStyle = "red";
+			ctx.beginPath();
+			ctx.arc(20+60*(x-1)+offsetX,10+40*(y-1)+offsetY,10,0,Math.PI*2);
+			ctx.closePath();
+			ctx.stroke();
+		}
+		function drawHorizontalLine(x,y,offsetX,offsetY)
+		{
+			//x=1,y=1:40-10-60-10
+			//x=2,y=1:100-10-120-10
+			//x=1,y=2:40-50-60-50
+			ctx.strokeStyle = "black";
+			ctx.beginPath();
+			ctx.moveTo(60*x-20+offsetX,10+40*(y-1)+offsetY);
+			ctx.lineTo(60*x+offsetX,10+40*(y-1)+offsetY);
+			ctx.closePath();
+			ctx.stroke();
+		}
+		function drawVerticalLine(x,y,offsetX,offsetY)
+		{
+			//x=1,y=1:20-20-20-40
+			//x=2,y=1:80-20-80-40
+			//x=1,y=2:20-60-20-80
+			ctx.strokeStyle = "green";
+			ctx.beginPath();
+			ctx.moveTo(20+60*(x-1)+offsetX,40*y-20+offsetY);
+			ctx.lineTo(20+60*(x-1)+offsetX,40*y+offsetY);
+			ctx.closePath();
+			ctx.stroke();
+		}
+		function drawPrivateMap(offsetX,offsetY)
+		{
+			for(var y = 1;y <= 6;y++)
+			{
+				for(var x = 1;x <= 5;x++)
+				{
+					if((x % 2 == 0 && y % 2 == 0) || (x == 3 && y == 3))
+					{
+						drawCircle(x,y,offsetX,offsetY);
+					}
+					drawRect(x,y,offsetX,offsetY);
+				}
+			}
+			
+			for(var j = 1;j <= 6;j++)
+			{
+				for(var i = 1;i <= 4;i++)
+				{
+					drawHorizontalLine(i,j,offsetX,offsetY);
+				}
+			}
+			
+			for(var n = 1;n <= 5;n++)
+			{
+				for(var m = 1;m <= 5;m++)
+				{
+					drawVerticalLine(m,n,offsetX,offsetY);
+				}
+			}
+		}
+	</script>
+</body>
+</html>
