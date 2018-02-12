@@ -39,32 +39,40 @@
 				if(x % 100 == 0)
 				{
 					ctx.strokeStyle = "purple";
+					ctx.font = "10px purple";
 				}
 				else
 				{
 					ctx.strokeStyle = "grey";
+					ctx.font = "8px grey";
 				}
 				ctx.beginPath();
 				ctx.moveTo(x,0);
 				ctx.lineTo(x,900);
 				ctx.closePath();
 				ctx.stroke();
+				
+				ctx.strokeText(x,x,10);
 			}
 			for(var y = 0;y <= 900;y += 20 )
 			{
 				if(y % 100 == 0)
 				{
 					ctx.strokeStyle = "purple";
+					ctx.font = "10px purple";
 				}
 				else
 				{
 					ctx.strokeStyle = "grey";
+					ctx.font = "8px grey";
 				}
 				ctx.beginPath();
 				ctx.moveTo(0,y);
 				ctx.lineTo(1000,y);
 				ctx.closePath();
 				ctx.stroke();
+				
+				ctx.strokeText(y,1,y);
 			}
 		}
 		function drawRect(x,y,offsetX,offsetY)
