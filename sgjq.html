@@ -12,15 +12,13 @@
 		canvas.width = "1000";
 		canvas.height = "900";
 		var ctx = canvas.getContext("2d");
+		
 		//drawRuler();
-		drawPrivateMap(360,620);
-		ctx.rotate(90*Math.PI/180);
-		drawPrivateMap(300,-320);
-		ctx.rotate(90*Math.PI/180);
-		drawPrivateMap(-640,-260);
-		ctx.rotate(90*Math.PI/180);
-		drawPrivateMap(-580,680);
-		ctx.rotate(90*Math.PI/180);
+		drawMap();
+		
+		
+		
+		
 		function drawRuler()
 		{
 			for(var x = 0;x <= 1000;x += 20 )
@@ -99,6 +97,51 @@
 			ctx.closePath();
 			ctx.stroke();
 		}
+		function drawOneLRObliqueLine(offsetX,offsetY)
+		{
+			ctx.strokeStyle = "yellow";
+			ctx.beginPath();
+			ctx.moveTo(40+offsetX,20+offsetY);
+			ctx.lineTo(60+offsetX,40+offsetY);
+			ctx.closePath();
+			ctx.stroke();
+			
+			ctx.beginPath();
+			ctx.moveTo(100+offsetX,60+offsetY);
+			ctx.lineTo(120+offsetX,80+offsetY);
+			ctx.closePath();
+			ctx.stroke();
+		}
+		function drawOneRLObliqueLine(offsetX,offsetY)
+		{
+			ctx.strokeStyle = "yellow";
+			ctx.beginPath();
+			ctx.moveTo(120+offsetX,20+offsetY);
+			ctx.lineTo(100+offsetX,40+offsetY);
+			ctx.closePath();
+			ctx.stroke();
+			
+			ctx.beginPath();
+			ctx.moveTo(60+offsetX,60+offsetY);
+			ctx.lineTo(40+offsetX,80+offsetY);
+			ctx.closePath();
+			ctx.stroke();
+		}
+		function drawObliqueLine(offsetX,offsetY)
+		{
+			drawOneLRObliqueLine(offsetX,offsetY);
+			drawOneRLObliqueLine(offsetX,offsetY);
+			ctx.translate(120,0);
+			drawOneLRObliqueLine(offsetX,offsetY);
+			drawOneRLObliqueLine(offsetX,offsetY);
+			ctx.translate(0,80);
+			drawOneLRObliqueLine(offsetX,offsetY);
+			drawOneRLObliqueLine(offsetX,offsetY);
+			ctx.translate(-120,0);
+			drawOneLRObliqueLine(offsetX,offsetY);
+			drawOneRLObliqueLine(offsetX,offsetY);
+			ctx.translate(0,-80);
+		}
 		function drawPrivateMap(offsetX,offsetY)
 		{
 			for(var y = 1;y <= 6;y++)
@@ -128,6 +171,88 @@
 					drawVerticalLine(m,n,offsetX,offsetY);
 				}
 			}
+			
+			drawObliqueLine(offsetX,offsetY);
+		}
+		function drawAllPrivateMap()
+		{
+			//trying to adjust the position
+			drawPrivateMap(360,620);
+			ctx.rotate(90*Math.PI/180);
+			drawPrivateMap(300,-320);
+			ctx.rotate(90*Math.PI/180);
+			drawPrivateMap(-640,-260);
+			ctx.rotate(90*Math.PI/180);
+			drawPrivateMap(-580,680);
+			ctx.rotate(90*Math.PI/180);
+		}
+		function drawPublicLine()
+		{
+			ctx.strokeStyle = "green";
+			for(var i = 0;i < 3;i++)
+			{
+				ctx.beginPath();
+				ctx.moveTo(320,320+i*120);
+				ctx.lineTo(680,320+i*120);
+				ctx.closePath();
+				ctx.stroke();
+			}
+			for(var j = 0;j < 3;j++)
+			{
+				ctx.beginPath();
+				ctx.moveTo(380+j*120,260);
+				ctx.lineTo(380+j*120,620);
+				ctx.closePath();
+				ctx.stroke();
+			}
+		}
+		function drawPublicCircle()
+		{
+			ctx.strokeStyle = "blue";
+			for(var y = 0;y < 3;y++)
+			{
+				for(var x = 0;x < 3;x++)
+				{
+					ctx.beginPath();
+					ctx.arc(380+x*120,320+y*120,20,0,Math.PI*2);
+					ctx.closePath();
+					ctx.stroke();
+				}
+			}
+		}
+		function drawPublicArc()
+		{
+			ctx.strokeStyle = "green";
+			ctx.beginPath();
+			ctx.arc(320,260,60,0,Math.PI/2);
+			ctx.stroke();
+			ctx.closePath();
+			
+			ctx.beginPath();
+			ctx.arc(680,260,60,Math.PI/2,Math.PI);
+			ctx.stroke();
+			ctx.closePath();
+			
+			ctx.beginPath();
+			ctx.arc(320,620,60,3*Math.PI/2,Math.PI*2);
+			ctx.stroke();
+			ctx.closePath();
+			
+			ctx.beginPath();
+			ctx.arc(680,620,60,Math.PI,3*Math.PI/2);
+			ctx.stroke();
+			ctx.closePath();
+		}
+		function drawAllPublicMap()
+		{
+			drawPublicLine();
+			drawPublicCircle();
+			drawPublicArc();
+		}
+		function drawMap()
+		{
+			drawAllPrivateMap();
+			drawAllPublicMap();
 		}
 	</script>
 </body>
