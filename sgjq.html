@@ -13,10 +13,23 @@
 		canvas.height = "900";
 		var ctx = canvas.getContext("2d");
 		
-		//drawRuler();
+		drawRuler();
 		drawMap();
+		ctx.globalCompositeOperation="destination-over";
+		var linearGradient = ctx.createLinearGradient(40,0,80,0);
+		linearGradient.addColorStop(0,"#FF9800");
+		linearGradient.addColorStop(1,"#CDDC39");
+		ctx.fillStyle = linearGradient;
+		ctx.beginPath();
+		ctx.arc(60,20,20,0,Math.PI*2);
+		ctx.closePath();
+		ctx.fill();
 		
 		
+		var radialGradient = ctx.createRadialGradient(75,50,5,90,60,100);
+		radialGradient.addColorStop(0,"red");
+		radialGradient.addColorStop(1,"white");
+		ctx.fillStyle = radialGradient;
 		
 		
 		function drawRuler()
