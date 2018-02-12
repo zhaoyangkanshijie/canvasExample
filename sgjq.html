@@ -9,19 +9,53 @@
 	
 	<script>
 		var canvas = document.getElementById("background-map");
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
+		canvas.width = "1000";
+		canvas.height = "900";
 		var ctx = canvas.getContext("2d");
-		
-		drawPrivateMap(300,600);
+		//drawRuler();
+		drawPrivateMap(360,620);
 		ctx.rotate(90*Math.PI/180);
-		drawPrivateMap(300,-300);
+		drawPrivateMap(300,-320);
 		ctx.rotate(90*Math.PI/180);
-		drawPrivateMap(-600,-300);
+		drawPrivateMap(-640,-260);
 		ctx.rotate(90*Math.PI/180);
-		drawPrivateMap(-600,600);
+		drawPrivateMap(-580,680);
 		ctx.rotate(90*Math.PI/180);
-		
+		function drawRuler()
+		{
+			for(var x = 0;x <= 1000;x += 20 )
+			{
+				if(x % 100 == 0)
+				{
+					ctx.strokeStyle = "purple";
+				}
+				else
+				{
+					ctx.strokeStyle = "grey";
+				}
+				ctx.beginPath();
+				ctx.moveTo(x,0);
+				ctx.lineTo(x,900);
+				ctx.closePath();
+				ctx.stroke();
+			}
+			for(var y = 0;y <= 900;y += 20 )
+			{
+				if(y % 100 == 0)
+				{
+					ctx.strokeStyle = "purple";
+				}
+				else
+				{
+					ctx.strokeStyle = "grey";
+				}
+				ctx.beginPath();
+				ctx.moveTo(0,y);
+				ctx.lineTo(1000,y);
+				ctx.closePath();
+				ctx.stroke();
+			}
+		}
 		function drawRect(x,y,offsetX,offsetY)
 		{
 			//x=1,y=1:0-0-40-20 (x-1)-(y-1)-40-20
