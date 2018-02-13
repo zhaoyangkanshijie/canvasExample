@@ -4,6 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <title>太极</title>
+		<script src="ruler.js"></script>
+		<script src="taijiball.js"></script>
+		<script src="taiji.js"></script>
     </head>
 
     <body>
@@ -14,157 +17,11 @@
 			var taijis = [];
 			canvas = document.getElementById("canvas");
 			ctx = canvas.getContext("2d");
-			drawRuler();
+			drawRuler("canvas");
 			//ctx.globalCompositeOperation="destination-over";
-			function drawRuler()
-			{
-				for(var x = 0;x <= 1000;x += 20 )
-				{
-					if(x % 100 == 0)
-					{
-						ctx.strokeStyle = "purple";
-						ctx.font = "10px purple";
-					}
-					else
-					{
-						ctx.strokeStyle = "grey";
-						ctx.font = "8px grey";
-					}
-					ctx.beginPath();
-					ctx.moveTo(x,0);
-					ctx.lineTo(x,900);
-					ctx.closePath();
-					ctx.stroke();
-					
-					ctx.strokeText(x,x,10);
-				}
-				for(var y = 0;y <= 900;y += 20 )
-				{
-					if(y % 100 == 0)
-					{
-						ctx.strokeStyle = "purple";
-						ctx.font = "10px purple";
-					}
-					else
-					{
-						ctx.strokeStyle = "grey";
-						ctx.font = "8px grey";
-					}
-					ctx.beginPath();
-					ctx.moveTo(0,y);
-					ctx.lineTo(1000,y);
-					ctx.closePath();
-					ctx.stroke();
-					
-					ctx.strokeText(y,1,y);
-				}
-			}
-			function Taiji(size,x,y,angle)
-			{
-				this.size = size;
-				this.offsetX = x;
-				this.offsetY = y;
-				this.angle = angle;
-			}
-			Taiji.prototype.draw = function()
-			{
-				//ctx.clearRect(0, 0, 600, 600);
-				//ctx.lineWidth = 10;
-				
-				ctx.save();
-				ctx.translate(this.size,this.size);
-				ctx.translate(this.offsetX,this.offsetY);
-				ctx.rotate(this.angle);
-
-				ctx.fillStyle = "black";
-				ctx.beginPath();
-				ctx.arc(0, 0, this.size, 0, Math.PI, true);
-				ctx.fill();
-				ctx.closePath();
-				
-				ctx.fillStyle = "gray";
-				ctx.beginPath();
-				ctx.arc(0, 0, this.size, 0, Math.PI, false);
-				ctx.fill();
-				ctx.closePath();
-
-				ctx.fillStyle = "black";
-				ctx.beginPath();
-				ctx.arc(this.size/2, -0.5, this.size/2, 0, Math.PI, false);
-				ctx.fill();
-				ctx.closePath();
-
-				ctx.fillStyle = "gray";
-				ctx.lineWidth = 0;
-				ctx.beginPath();
-				ctx.arc(-this.size/2, 0.5, this.size/2, 0, Math.PI, true);
-				ctx.fill();
-				ctx.closePath();
-
-				ctx.fillStyle = "black";
-				ctx.beginPath();
-				ctx.arc(-this.size/2, 0, this.size/10, 0, 2*Math.PI, false);
-				ctx.fill();
-				ctx.closePath();
-
-				ctx.fillStyle = "gray";
-				ctx.beginPath();
-				ctx.arc(this.size/2, 0, this.size/10, 0, 2*Math.PI, false);
-				ctx.fill();
-				ctx.closePath();
-
-				ctx.restore();
-			}
-			Taiji.prototype.update = function()
-			{
-				this.angle += 0.02;
-			}
-			function createTaiji()
-			{
-				//var taiji = new Taiji(100,100,100,0);
-				//taijis.push(taiji);
-				createOneTaiji();
-				for(var i = 0;i < taijis.length;i++)
-				{
-					taijis[i].draw();
-					taijis[i].update();
-				}
-				//console.log(taiji);
-				//console.log(taijis);
-				requestAnimationFrame(createTaiji);
-			}
-			function runOnce(fn, context) { //控制让函数只触发一次,会报错
-				return function () {
-					try {
-						fn.apply(context || this, arguments);
-					}
-					catch (e) {
-						console.error(e);//一般可以注释掉这行
-					}
-					finally {
-						fn = null;
-					}
-				}
-			}
-			function once(fn, context) { 
-				var result;
-			 
-				return function() { 
-					if(fn) {
-						result = fn.apply(context || this, arguments);
-						fn = null;
-					}
-			 
-					return result;
-				};
-			}
-			var createOneTaiji = once(function(){
-				var taiji = new Taiji(100,100,100,0);
-				var taiji2 = new Taiji(100,100,500,0);
-				taijis.push(taiji);
-				taijis.push(taiji2);
-			});
-			createTaiji();
+			
+			taijiCanvas.initial("canvas", [[100, 300, 300, 0]]);
+			taijiCanvas.initial("canvas", [[100, 100, 100, 0], [100, 500, 500, 0]]);
 		</script>
     </body>
 
