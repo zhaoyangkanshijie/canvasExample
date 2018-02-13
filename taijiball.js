@@ -11,7 +11,7 @@ Taiji.prototype = {
 
         ctx.save();
         ctx.translate(this.size, this.size);
-        ctx.translate(this.offsetX, this.offsetY);
+        ctx.translate(this.offsetX - this.size, this.offsetY - this.size);
         ctx.rotate(this.angle);
 
         ctx.fillStyle = "black";
