@@ -1,7 +1,7 @@
 # canvasExample
 
 1. 太极图(taiji.html)
-![太极图](./taiji.gif)
+![太极图](taiji.gif)
 
 结构：
 
@@ -29,7 +29,7 @@
 
 
 2. 四国军棋棋盘(sgjq.html)
-![四国军棋棋盘](./sgjq.gif)
+![四国军棋棋盘](sgjq.gif)
 
 结构：
 
